@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="a2n_calc_box">
+      <button class="a2n_btn" id="button101" onclick="decrement()">-</button>
+      <input
+        id="demoInput1"
+        type="number"
+        value="5"
+        min="5"
+        max="20"
+        disabled=""
+      />
+      <button class="a2n_btn" id="button102" onclick="increment()">+</button>
+    </div>
+    <div class="total-price">Total: <span id="totalPrice">£60.00</span></div>
+    <a
+      href="/cart/?add-to-cart=479762"
+      class="add_to_cart_button a2n_cart_btn"
+      data-product_id="479762"
+      data-product_sku=""
+      aria-label="Add"
+      rel="nofollow"
+      >Buy Now</a
+    >
+    <script>
+      function increment() {
+        document.getElementById("demoInput1").stepUp();
+      }
+
+      function decrement() {
+        document.getElementById("demoInput1").stepDown();
+      }
+
+      jQuery(document).ready(function ($) {
+        $(".add_to_cart_button").click(function (e) {
+          e.preventDefault();
+
+          var inputVal = $("#demoInput1").val();
+
+          if (inputVal >= 5 && inputVal <= 20) {
+            $(".a2n_cart_btn").attr("data-quantity", inputVal);
+            $("#totalPrice").html("£" + inputVal * 11.99);
+
+            window.location.href =
+              $(this).attr("href") + "&quantity=" + inputVal;
+          }
+        });
+
+        $(".a2n_btn").click(function () {
+          var inputVal = $("#demoInput1").val();
+
+          if (inputVal >= 5 && inputVal <= 20) {
+            var totalPrice = (inputVal * 11.999).toFixed(2);
+            $("#totalPrice").html("£" + totalPrice);
+          }
+        });
+        $("#demoInput1").on("input", function () {
+          var inputVal = $(this).val();
+
+          if (inputVal >= 5 && inputVal <= 20) {
+            var totalPrice = (inputVal * 11.999).toFixed(2);
+            $("#totalPrice").html("£" + totalPrice);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
